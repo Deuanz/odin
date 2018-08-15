@@ -9,8 +9,8 @@ CREATE OR REPLACE FUNCTION odin.identity_email_ledger_insert() RETURNS TRIGGER A
         INSERT INTO odin.identity (id, email, verified)
             VALUES (NEW.identity_id, NEW.email, NEW.verified)
             ON CONFLICT (id) DO UPDATE SET
-                email = EXCLUDED.email;
-                verified = EXCLUDED.verified
+                email = EXCLUDED.email,
+                verified = EXCLUDED.verified;
         RETURN NULL;
     END;
     $body$ LANGUAGE plpgsql SECURITY DEFINER SET search_path = odin;
